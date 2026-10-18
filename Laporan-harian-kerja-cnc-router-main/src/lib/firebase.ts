@@ -13,8 +13,8 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
 
 export const googleAuthProvider = new GoogleAuthProvider();
-// Google Drive Scopes
-googleAuthProvider.addScope('https://www.googleapis.com/auth/drive');
+// Google Drive: hanya akses ke file/folder yang dibuat aplikasi ini (drive.file).
+// Scope ini tidak dianggap "sensitif" sehingga tidak memicu layar "Google belum memverifikasi aplikasi ini".
 googleAuthProvider.addScope('https://www.googleapis.com/auth/drive.file');
 
 let cachedAccessToken: string | null = null;
