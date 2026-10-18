@@ -3,7 +3,7 @@ import { getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 
 // Project ID Firebase bukan rahasia; bisa di-override lewat env.
-const PROJECT_ID = process.env.FIREBASE_PROJECT_ID || 'hypnagogic-airfoil-fsx65';
+const PROJECT_ID = process.env.FIREBASE_PROJECT_ID || 'web1report';
 
 if (!getApps().length) initializeApp({ projectId: PROJECT_ID });
 
@@ -54,3 +54,4 @@ export const requireAdmin = async (req: AuthedRequest, res: Response, next: Next
   req.user = { uid: decoded.uid, email: decoded.email };
   next();
 };
+
