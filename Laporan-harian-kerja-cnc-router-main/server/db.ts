@@ -5,7 +5,7 @@ import { neon } from '@neondatabase/serverless';
  * cocok untuk Vercel (tanpa pool koneksi yang bocor) maupun dev lokal.
  */
 export const getSql = () => {
-  const url = process.env.DATABASE_URL;
+  const url = DATABASE_URL=postgresql://neondb_owner:npg_MvVuNR9xmG2c@ep-curly-dawn-az2xmcaj-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require;
   if (!url) {
     throw new Error('DATABASE_URL belum dikonfigurasi (isi di .env lokal atau Environment Variables Vercel).');
   }
