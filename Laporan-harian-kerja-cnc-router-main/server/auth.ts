@@ -72,4 +72,3 @@ export const requireAdmin = async (req: AuthedRequest, res: Response, next: Next
     next(err);
   }
 };
-
