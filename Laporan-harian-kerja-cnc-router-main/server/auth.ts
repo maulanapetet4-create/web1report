@@ -2,7 +2,12 @@ import { getAuth, FirebaseAuthError, type DecodedIdToken } from 'firebase-admin/
 import { getApps, initializeApp } from 'firebase-admin/app';
 import type { NextFunction, Request, Response } from 'express';
 
-const firebaseApp = getApps()[0] ?? initializeApp();
+const projectId =
+  process.env.FIREBASE_PROJECT_ID ||
+  process.env.GCLOUD_PROJECT ||
+  process.env.GOOGLE_CLOUD_PROJECT ||
+  'web1report';
+const firebaseApp = getApps()[0] ?? initializeApp({ projectId });
 
 export type AuthedRequest = Request & {
   user?: { uid: string; email?: string };
@@ -66,9 +71,4 @@ export const requireAdmin = async (req: AuthedRequest, res: Response, next: Next
     if (!decoded.email || !decoded.email_verified || !admins.includes(decoded.email.toLowerCase())) {
       return res.status(403).json({ error: 'Akun ini tidak memiliki akses admin.' });
     }
-    req.user = { uid: decoded.uid, email: decoded.email };
-    next();
-  } catch (err) {
-    next(err);
-  }
-};
+  
