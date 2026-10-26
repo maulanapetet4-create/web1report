@@ -1,5 +1,6 @@
 import { CncDailyReport, ApprovalStep } from '../types';
 import { auth } from '../lib/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const LEGACY_STORAGE_KEY = 'cnc_daily_reports_db_v1';
 let legacyMigration: Promise<void> | undefined;
@@ -10,7 +11,19 @@ const responseError = async (response: Response): Promise<Error> => {
 };
 
 const authHeaders = async (): Promise<Record<string, string>> => {
-  await auth.authStateReady();
+  await new Promise<void>((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      () => {
+        unsubscribe();
+        resolve();
+      },
+      (error) => {
+        unsubscribe();
+        reject(error);
+      }
+    );
+  });
   const token = await auth.currentUser?.getIdToken();
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
