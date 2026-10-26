@@ -1,4 +1,13 @@
+import { neon } from '@neondatabase/serverless';
+
+export const getSql = () => {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL belum dikonfigurasi.');
+  }
+  return neon(databaseUrl);
 };
+
 let schemaReady: Promise<void> | undefined;
 /** Membuat tabel bila belum ada. Dipanggil sekali per instance server. */
 export const ensureSchema = (): Promise<void> => {
