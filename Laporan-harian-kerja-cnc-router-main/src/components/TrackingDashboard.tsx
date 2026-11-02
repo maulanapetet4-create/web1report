@@ -208,16 +208,15 @@ export const TrackingDashboard: React.FC<TrackingDashboardProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs uppercase tracking-wider font-semibold text-orange-400 bg-orange-950/60 px-2 py-0.5 rounded border border-orange-700/50">
-                  PT Labtech Indonesia
+                <span className="text-xs uppercase tracking-wider font-semibold text-slate-300">
+                  Laporan Harian
                 </span>
-                <span className="text-xs text-slate-400">• Divisi Mesin CNC Router</span>
               </div>
-              <h2 className="text-2xl font-bold mt-1 text-white tracking-tight">
-                Dashboard Pelacakan Laporan Harian CNC Router
+              <h2 className="text-2xl font-bold mt-1 text-slate-300 tracking-tight">
+                Dashboard Daily Report CNC Router
               </h2>
-              <p className="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                Pantau status penyerahan formulir fisik, verifikasi perawatan mesin & mata pisau, serta progres persetujuan bertingkat dari Supervisor (Mulyana) hingga GM (Arifin).
+              <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                Ringkasan laporan harian CNC Router.
               </p>
             </div>
           </div>
