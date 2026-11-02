@@ -116,7 +116,11 @@ export const saveReportsToStorage = async (reports: CncDailyReport[]): Promise<v
 };
 
 export const deleteReportFromServer = async (id: string): Promise<void> => {
-  await request(`/api/reports/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  const response = await fetch(`/api/reports/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    headers: await authHeaders(),
+  });
+  if (!response.ok) throw await responseError(response);
 };
 
 export const clearReportsOnServer = async (): Promise<void> => {
@@ -242,8 +246,4 @@ export const getApprovalUrl = (
   token: string,
   role: 'supervisor' | 'gm',
   _reportId?: string
-): string => {
-  const baseUrl = window.location.origin + window.location.pathname;
-  const roleCode = role === 'supervisor' ? 'spv' : 'gm';
-  return `${baseUrl}#/${roleCode}/${token}`;
-};
+):
