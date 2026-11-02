@@ -83,10 +83,20 @@ app.get('/api/reports/:idOrToken', authenticateOptional, asyncRoute(async (req, 
   res.json(lookup.report);
 }));
 
-app.delete('/api/reports/:id', requireAuth, asyncRoute(async (req, res) => {
-  await removeReport(req.params.id);
-  res.status(204).end();
-}));
+app.delete(
+  '/api/reports/:id',
+  (_req, _res, next) => {
+    console.info('[reports:delete] request received');
+    next();
+  },
+  requireAuth,
+  asyncRoute(async (req, res) => {
+    console.info('[reports:delete] authenticated; deleting report');
+    await removeReport(req.params.id);
+    console.info('[reports:delete] report deleted');
+    res.status(204).end();
+  })
+);
 
 app.post('/api/reports/:id/approval', asyncRoute(async (req, res) => {
   const { role, decision, notes, approverName, token } = req.body ?? {};
