@@ -83,7 +83,7 @@ app.get('/api/reports/:idOrToken', authenticateOptional, asyncRoute(async (req, 
   res.json(lookup.report);
 }));
 
-app.delete('/api/reports/:id', requireAdmin, asyncRoute(async (req, res) => {
+app.delete('/api/reports/:id', requireAuth, asyncRoute(async (req, res) => {
   await removeReport(req.params.id);
   res.status(204).end();
 }));
